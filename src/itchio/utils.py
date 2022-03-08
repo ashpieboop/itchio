@@ -4,11 +4,14 @@ import os
 
 from clint.textui import progress
 
-def download(url, path, desc):
+def download(url, path, desc, fallback_filename):
     print(f"Downloading {desc}")
     rsp = requests.get(url, stream=True)
     cd = rsp.headers.get("Content-Disposition")
-    filename = re.search(r'filename="(.+)"', cd).group(1)
+    if cd is not None:
+        filename = re.search(r'filename="(.+)"', cd).group(1)
+    else:
+        filename = fallback_filename
     total_length = int(rsp.headers.get('content-length'))
 
     if os.path.exists(f"{path}/{filename}"):

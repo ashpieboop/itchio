@@ -59,7 +59,7 @@ class Game:
             url = f"https://api.itch.io/uploads/{d['id']}/download?api_key={token}&download_key_id={self.id}&uuid={j['uuid']}"
             # response_code = urllib.request.urlopen(url).getcode()
             try:
-                itchio.utils.download(url, path, self.name +" - "+file)
+                itchio.utils.download(url, path, self.name +" - "+file, file)
             except urllib.error.HTTPError as e:
                 print("This one has broken!!")
 
